@@ -4,49 +4,48 @@ title: Part 1 - Lab setup
 
 # Part 1: Lab setup
 
-## Architecture
+Three VMs, one network, zero patience required (okay, a little).
 
 ![Lab network](images/network-diagram.svg)
 
-| VM | Role | Resources |
+| VM | Job | Size |
 |---|---|---|
-| Ubuntu 22.04 Desktop | Wazuh 4.14.9 (manager, indexer, dashboard) | 8 GB RAM, 4 vCPU, 60 GB disk |
-| Windows | Monitored endpoint: Sysmon and Wazuh agent | 6-8 GB RAM, 4 vCPU |
-| Kali Linux | Third machine on the lab network | 4 GB RAM, 2 vCPU |
+| Ubuntu 22.04 | Wazuh: the brain | 8 GB RAM, 4 CPU, 60 GB disk |
+| Windows | The machine being watched (Sysmon + Wazuh agent) | 6-8 GB RAM |
+| Kali | Third machine on the lab network | 4 GB RAM |
 
-Each VM has two adapters: **Adapter 1 NAT** for internet through the host, and
-**Adapter 2 NAT Network `SOCLab`** (`10.10.10.0/24`) for isolated lab traffic.
+Every VM gets **two network cards**: one NAT card for the internet, and one on a private
+lab-only network (`SOCLab`, `10.10.10.0/24`) so lab traffic stays away from the home Wi-Fi.
 
-## 1. Network
+## Step 1: the private network
 
 ```powershell
 VBoxManage natnetwork add --netname SOCLab --network "10.10.10.0/24" --enable --dhcp on
 VBoxManage modifyvm "<vm>" --nic1 nat --nic2 natnetwork --nat-network2 SOCLab
 ```
 
-## 2. Wazuh server
+## Step 2: install Wazuh
+
+Two commands, then a coffee break:
 
 ```bash
 sudo apt install -y curl
 curl -sO https://packages.wazuh.com/4.14/wazuh-install.sh && sudo bash ./wazuh-install.sh -a
 ```
 
-The installer runs the indexer, manager, Filebeat and dashboard in sequence:
+![Wazuh installing](images/wazuh-install-progress.png)
 
-![Wazuh install progress](images/wazuh-install-progress.png)
+## Step 3: set up the Windows machine
 
-## 3. Windows endpoint
+Sysmon is a free Microsoft tool that records what programs do. Wazuh reads those records.
 
-Sysmon with the SwiftOnSecurity configuration:
+![Sysmon running, and the Windows VM can reach Wazuh](images/windows-sysmon-running.png)
 
-![Sysmon running and connectivity to Wazuh](images/windows-sysmon-running.png)
-
-Wazuh agent pointed at the manager, installed from the MSI:
+Then I installed the Wazuh agent, which sends everything to the server:
 
 ![Wazuh agent installed](images/windows-agent-installed.png)
 
-The agent is told to read the Sysmon event channel by adding a `localfile`
-block to `ossec.conf`:
+And told the agent to read Sysmon's log by adding this to its config:
 
 ```xml
 <localfile>
@@ -55,9 +54,9 @@ block to `ossec.conf`:
 </localfile>
 ```
 
-![Sysmon log collection in ossec.conf](images/windows-sysmon-log-config.png)
+![Sysmon log added to the agent config](images/windows-sysmon-log-config.png)
 
-## 4. Verification
+## Step 4: does it work?
 
 On the Wazuh server:
 
@@ -65,14 +64,12 @@ On the Wazuh server:
 sudo /var/ossec/bin/agent_control -l
 ```
 
-![Agent list showing the Windows agent as Active](images/wazuh-agents-active.png)
+![The Windows agent shows as Active](images/wazuh-agents-active.png)
 
-The Windows agent (`win10`) reports `Active`.
+`win10 ... Active` means the Windows machine is talking to Wazuh. And Kali can reach it too:
 
-From the Kali VM, the Wazuh server is reachable on the lab network:
-
-![Kali pinging Wazuh](images/kali-ping-wazuh.png)
+![Kali pings Wazuh](images/kali-ping-wazuh.png)
 
 ## Next
 
-[Part 2: Detection rules](02-detection-rules.md) (2 rules tested).
+[Part 2: Detection rules](02-detection-rules.md)

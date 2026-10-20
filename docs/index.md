@@ -2,21 +2,21 @@
 title: Home SOC Lab
 ---
 
-# Home SOC Lab
+# My Home SOC Lab
 
-A small, isolated security-monitoring lab: a Wazuh SIEM, a Windows endpoint with
-Sysmon, and a Kali VM, all on one PC with Oracle VirtualBox.
+I built a tiny security operations center on my own PC, broke a few things on the way,
+fixed them, and wrote it all down so you don't have to suffer the same way.
 
 ![Lab network](images/network-diagram.svg)
 
-## Parts
+## The journey
 
-1. [Lab setup](01-lab-setup.md): architecture, install, and verification
-2. [Detection rules](02-detection-rules.md): custom Wazuh rules mapped to MITRE ATT&CK (2 rules tested)
-3. [Investigation write-ups](03-investigations.md): triaging real alerts from the lab (planned)
-4. [Lessons learned](04-lessons-learned.md): problems hit while building it
+1. [Lab setup](01-lab-setup.md): three VMs, one isolated network, one very patient PC
+2. [Detection rules](02-detection-rules.md): two rules I wrote, and two I deleted (on purpose)
+3. [Investigation write-ups](03-investigations.md): coming soon
+4. [Lessons learned](04-lessons-learned.md): the "why is nothing working" chapter
 
-## Goal
+## Why bother?
 
-Show the full loop of a SOC analyst's basics: collect endpoint logs, see them in
-a SIEM, write detections, and explain what an alert means.
+Because the best way to understand what a SOC analyst does is to build the thing, poke
+it, and see what lights up.

@@ -4,16 +4,15 @@ title: Part 4 - Lessons learned
 
 # Part 4: Lessons learned
 
-Problems hit while building the lab, and what fixed them.
+Or: "everything that broke, and what fixed it."
 
-## The VM disk filled up during the Wazuh install
+## The disk filled up and Wazuh gave up
 
-The Wazuh installer failed at the dashboard step and rolled everything back.
+The installer got all the way to the last step, then died and politely uninstalled itself.
 
-![No space left on device during dpkg](images/lesson-disk-full-error.png)
+![No space left on device](images/lesson-disk-full-error.png)
 
-The log showed `No space left on device`. The VM disk was 25 GB. I resized the
-virtual disk to 60 GB, then grew the partition and filesystem:
+The VM disk was only 25 GB. I made it 60 GB and grew the partition:
 
 ```bash
 sudo apt install -y cloud-guest-utils
@@ -21,36 +20,34 @@ sudo growpart /dev/sda 3
 sudo resize2fs /dev/sda3
 ```
 
-The re-run installed cleanly. **Lesson:** a SIEM needs real disk space; size the
-VM for the install and the logs it will collect.
+Second try worked. **Lesson:** a SIEM eats disk. Give it room.
 
-## VMs were slow because everything sat on a spinning disk
+## Everything was slow (it was the hard disk)
 
-Three VMs installing at once on a hard disk pushed it past 100% busy, with
-30-60 ms per I/O. Moving the VM files to an SSD fixed it. **Lesson:** check where
-the VM files live before blaming the CPU.
+Three VMs installing on a spinning hard drive = a very sad computer. Moving the VM files
+to an SSD fixed it. **Lesson:** check where your files live before blaming the CPU.
 
-## Copy-paste did not work in the Ubuntu VM
+## Copy-paste refused to work
 
-Two causes, found by checking the session and the running processes:
+Two culprits:
 
-- Ubuntu 22.04 used a Wayland session, and the VirtualBox clipboard service
-  only works on Xorg. Fix: set `WaylandEnable=false` in `/etc/gdm3/custom.conf`.
-- Guest Additions 6.1.50 (from apt) and 7.2.6 (from the CD) were both installed
-  and conflicted. Fix: keep only the matching version and start
-  `VBoxClient --clipboard` from an autostart entry.
+- Ubuntu was using **Wayland**, and VirtualBox's clipboard only works on **Xorg**.
+- Two different versions of the VirtualBox guest tools were installed and fighting.
 
-**Lesson:** match guest tools to the hypervisor version, and verify with
-`pgrep -a VBoxClient` instead of assuming.
+Fix: switch to Xorg, keep only one version of the tools, and start the clipboard helper
+on login. **Lesson:** match the guest tools to your VirtualBox version.
 
-## A user without sudo
+## The user couldn't use sudo
 
-The unattended installer created a user that was not in the `sudo` group. I fixed
-it from a live ISO by mounting the root partition and adding the user to the
-group. **Lesson:** verify privileges early.
+The auto-installer made my Ubuntu user without admin powers. I fixed it from a live
+Ubuntu ISO by mounting the disk and adding the user to the `sudo` group. **Lesson:**
+test `sudo whoami` first thing.
 
-## Segmenting the network
+## My detection rules were redundant
 
-Each VM got a NAT adapter (internet) and a second adapter on an isolated NAT
-Network. The lab traffic stays off the home network, which matters once the lab
-runs anything you do not want near other devices.
+Covered in [Part 2](02-detection-rules.md). Short version: I wrote rules Wazuh already had.
+
+## Keeping the lab off the home Wi-Fi
+
+Each VM has an internet card and a second card on a private lab-only network. Handy for
+the day I run something I don't want anywhere near the family laptop.
