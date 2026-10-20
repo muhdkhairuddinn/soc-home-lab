@@ -1,0 +1,36 @@
+<!--
+  Custom Wazuh rules for Sysmon events from the Windows lab endpoint.
+  Deployed as /var/ossec/etc/rules/soclab_rules.xml on the Wazuh server (wazuh-manager restarted).
+
+  STATUS: both rules tested on 2026-10-21; each fired once on its benign trigger.
+  Parent rule 61603 = Sysmon event 1 (process creation), confirmed in
+  /var/ossec/ruleset/rules/0595-win-sysmon_rules.xml.
+
+  Two earlier candidates were dropped because the default ruleset already alerts on them:
+  encoded PowerShell (default rule 92057) and Run key writes (default rules 92302, 92041).
+  See docs/02-detection-rules.md.
+-->
+<group name="local,sysmon,soclab,">
+
+  <!-- T1033 System Owner/User Discovery -->
+  <rule id="100100" level="5">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.originalFileName" type="pcre2">(?i)^whoami\.exe$</field>
+    <description>Sysmon 1: whoami.exe executed by $(win.eventdata.user)</description>
+    <mitre>
+      <id>T1033</id>
+    </mitre>
+  </rule>
+
+  <!-- T1053.005 Scheduled Task/Job: Scheduled Task -->
+  <rule id="100102" level="7">
+    <if_sid>61603</if_sid>
+    <field name="win.eventdata.originalFileName" type="pcre2">(?i)^schtasks\.exe$</field>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)/create</field>
+    <description>Sysmon 1: scheduled task created with schtasks.exe</description>
+    <mitre>
+      <id>T1053.005</id>
+    </mitre>
+  </rule>
+
+</group>
