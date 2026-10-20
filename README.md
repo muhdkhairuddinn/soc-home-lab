@@ -10,10 +10,10 @@ isolated network.
 
 | Part | Topic | Status |
 |---|---|---|
-| 1 | [Lab setup](docs/01-lab-setup.md) | Done |
-| 2 | [Detection rules](docs/02-detection-rules.md) | Done (2 rules tested; alert screenshots to add) |
+| 1 | [Lab setup](docs/01-lab-setup.md) | Working and documented |
+| 2 | [Detection rules](docs/02-detection-rules.md) | In progress: 2 rules tested, evidence (screenshots, logtest) still to add |
 | 3 | [Investigation write-ups](docs/03-investigations.md) | Planned |
-| 4 | [Lessons learned](docs/04-lessons-learned.md) | Done |
+| 4 | [Lessons learned](docs/04-lessons-learned.md) | Written, will grow as the lab does |
 
 ## What works today
 
