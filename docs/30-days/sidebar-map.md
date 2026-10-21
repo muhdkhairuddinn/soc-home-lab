@@ -10,7 +10,7 @@ The Wazuh dashboard sidebar is a list of things to learn. This table shows which
 
 | Sidebar item | What it is for | Day |
 |---|---|---|
-| Agents management (Endpoints Summary) | List and manage agents | [2](day02.md), 3 |
+| Agents management (Endpoints Summary) | List and manage agents | [2](day02.md), [3](day03.md) |
 | Threat Hunting | Search and read alerts | 2, 5, 20 |
 | File Integrity Monitoring | Changes to watched files | 15 |
 | Configuration Assessment | Hardening checks (SCA) | 16 |
