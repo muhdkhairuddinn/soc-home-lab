@@ -1,5 +1,6 @@
 ---
 title: Home SOC Lab
+nav_order: 1
 ---
 
 # My Home SOC Lab
@@ -15,6 +16,10 @@ fixed them, and wrote it all down so you don't have to suffer the same way.
 2. [Detection rules](02-detection-rules.md): two rules I wrote, and two I deleted (on purpose)
 3. [Investigation write-ups](03-investigations.md): a failed-logon alert, traced step by step
 4. [Lessons learned](04-lessons-learned.md): what this taught me about security monitoring
+
+## New: 30-day Wazuh plan
+
+A day-by-day plan to learn Wazuh hands-on, with notes space for each day. Start at the [30-Day Plan](30-days/index.md) and use the sidebar.
 
 ## Why bother?
 

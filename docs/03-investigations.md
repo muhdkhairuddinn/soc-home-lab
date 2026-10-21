@@ -1,5 +1,7 @@
 ---
 title: Part 3 - Investigation write-ups
+parent: Lab build
+nav_order: 3
 ---
 
 # Part 3: Investigation write-ups

@@ -1,3 +1,10 @@
 title: Home SOC Lab
-description: Wazuh, Sysmon and VirtualBox home lab
-theme: jekyll-theme-minimal
+description: Wazuh, Sysmon and VirtualBox home lab, plus a 30-day Wazuh learning plan
+remote_theme: just-the-docs/just-the-docs@v0.12.0
+plugins:
+  - jekyll-remote-theme
+search_enabled: true
+heading_anchors: true
+aux_links:
+  "GitHub repo":
+    - "https://github.com/muhdkhairuddinn/soc-home-lab"

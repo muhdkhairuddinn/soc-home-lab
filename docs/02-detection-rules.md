@@ -1,5 +1,7 @@
 ---
 title: Part 2 - Detection rules
+parent: Lab build
+nav_order: 2
 ---
 
 # Part 2: Detection rules

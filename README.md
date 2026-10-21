@@ -40,6 +40,10 @@ fired first. Check what the tool already does before reinventing it.
 | 3 | [Investigation write-ups](docs/03-investigations.md) |
 | 4 | [Lessons learned](docs/04-lessons-learned.md) |
 
+## Learn Wazuh in 30 days
+
+A hands-on, day-by-day plan with a sidebar site: [30-Day Plan](docs/30-days/index.md).
+
 ## Built with
 
 VirtualBox, Ubuntu 22.04, Wazuh 4.14.9, Sysmon with the SwiftOnSecurity config, Kali Linux.

@@ -1,5 +1,7 @@
 ---
 title: Part 1 - Lab setup
+parent: Lab build
+nav_order: 1
 ---
 
 # Part 1: Lab setup

@@ -1,5 +1,7 @@
 ---
 title: Part 4 - Lessons learned
+parent: Lab build
+nav_order: 4
 ---
 
 # Part 4: Lessons learned
