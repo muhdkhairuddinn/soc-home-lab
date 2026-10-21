@@ -16,7 +16,7 @@ The Wazuh dashboard sidebar is a list of things to learn. This table shows which
 | Configuration Assessment | Hardening checks (SCA) | 16 |
 | Vulnerability Detection | Known CVEs in installed software | 17 |
 | MITRE ATT&CK | Alerts grouped by attacker technique | 12, 28 |
-| Server management: Rules and Decoders | Read, write and test detection logic | 8, 9, 10 |
+| Server management: Rules and Decoders | Read, write and test detection logic | [2](day02.md), 8, 9, 10 |
 | Reporting | Export what you found | 25 |
 | Discover, Visualize, Dashboards | Build your own views | 20 |
 
