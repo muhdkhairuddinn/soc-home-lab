@@ -40,9 +40,9 @@ fired first. Check what the tool already does before reinventing it.
 | 3 | [Investigation write-ups](docs/03-investigations.md) |
 | 4 | [Lessons learned](docs/04-lessons-learned.md) |
 
-## Learn Wazuh in 30 days
+## My 30-day Wazuh journey
 
-A hands-on, day-by-day plan with a sidebar site: [30-Day Plan](docs/30-days/index.md).
+My day-by-day journey learning Wazuh, with a page added after each day I finish: [My 30-Day Journey](docs/30-days/index.md).
 
 ## Built with
 

@@ -17,9 +17,9 @@ fixed them, and wrote it all down so you don't have to suffer the same way.
 3. [Investigation write-ups](03-investigations.md): a failed-logon alert, traced step by step
 4. [Lessons learned](04-lessons-learned.md): what this taught me about security monitoring
 
-## New: 30-day Wazuh plan
+## New: my 30-day Wazuh journey
 
-A day-by-day plan to learn Wazuh hands-on, with notes space for each day. Start at the [30-Day Plan](30-days/index.md) and use the sidebar.
+My day-by-day journey learning Wazuh. A page is added after each day I finish. Start at [My 30-Day Journey](30-days/index.md).
 
 ## Why bother?
 

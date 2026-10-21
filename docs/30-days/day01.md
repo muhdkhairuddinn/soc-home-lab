@@ -1,38 +1,41 @@
 ---
-title: "Day 1: What a SIEM does and how Wazuh is built"
+title: "Day 1: How Wazuh is built"
 parent: "Week 1: Foundations"
-grand_parent: 30-Day Plan
+grand_parent: My 30-Day Journey
 nav_order: 1
 ---
 
-# Day 1: What a SIEM does and how Wazuh is built
+# Day 1: How Wazuh is built
 
-**Goal:** Explain Wazuh's parts in your own words and find each one running in your lab.
+A SIEM collects logs from many machines in one place, checks them against rules, and shouts when something looks odd. Wazuh does that with four parts.
 
-## Read (15 minutes)
+## The four parts
 
-- [Wazuh architecture](https://documentation.wazuh.com/current/getting-started/architecture.html)
+| Part | Job | In my lab |
+|---|---|---|
+| **Agent** | Reads logs on the watched machine and sends them on | Windows VM |
+| **Manager** | Receives events, matches rules, makes alerts | Ubuntu VM |
+| **Indexer** | Stores alerts so they can be searched | Ubuntu VM |
+| **Dashboard** | Shows alerts in the browser | Ubuntu VM, opened from Windows |
 
-## Do
+## What I ran
 
-1. Read the architecture page. Draw the lab on paper: Windows agent, Wazuh server, indexer, dashboard.
-2. On the Wazuh VM, check that the three services are running:
-
-```bash
-sudo systemctl status wazuh-manager wazuh-indexer wazuh-dashboard --no-pager
-```
-
-3. Find which ports are listening. 1514 is agents talking to the server, 1515 is enrolling new agents, 55000 is the API, 9200 is the indexer, 443 is the dashboard:
+On the Wazuh server, I listed the ports that are listening:
 
 ```bash
 sudo ss -tlnp | grep -E '1514|1515|55000|9200|443'
 ```
 
-## Check yourself
+```text
+LISTEN 0.0.0.0:443      node             (dashboard)
+LISTEN 0.0.0.0:1514     wazuh-remoted    (agents send events here)
+LISTEN 0.0.0.0:1515     wazuh-authd      (agents enroll here)
+LISTEN 0.0.0.0:55000    python3          (Wazuh API)
+LISTEN 127.0.0.1:9200   java             (indexer)
+```
 
-- What does the agent do, and what does the manager do?
-- Which component stores alerts, and which one only shows them?
+## What I learned
 
-## My notes
-
-_Fill this in after you do it: what worked, what broke, and a screenshot._
+- Every part is a program listening on a port. If something breaks, check the port, then the program.
+- The **indexer only listens on 127.0.0.1**. Only the Ubuntu VM itself can reach my stored alerts. Nothing else on the network can talk to it directly, which is good for security.
+- The path of one alert: Windows writes an event, the agent sends it to port **1514**, the manager matches it to a rule, the alert goes into the indexer on **9200**, and the dashboard on **443** reads it through the API on **55000**.

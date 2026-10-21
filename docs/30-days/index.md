@@ -1,17 +1,12 @@
 ---
-title: 30-Day Plan
+title: My 30-Day Journey
 has_children: true
 nav_order: 3
 ---
 
-# Learn Wazuh in 30 days
+# My 30-day Wazuh journey
 
-One small topic a day, about an hour each. Every day has the same shape:
-
-1. **Read** a short official doc page.
-2. **Do** a hands-on step in the lab.
-3. **Check yourself** with two questions.
-4. **My notes**: write what actually happened, and add a screenshot.
+I'm learning Wazuh, one day at a time, on my own lab. Each day gets a page **after I've done it**: what I learned, what I ran, and what I saw. Days I haven't done yet are only in the plan below.
 
 | Week | Focus |
 |---|---|
@@ -20,10 +15,6 @@ One small topic a day, about an hour each. Every day has the same shape:
 | [Week 3](week3.md) | Capabilities: file integrity, hardening checks, vulnerabilities, a Linux agent |
 | [Week 4](week4.md) | SOC work: triage, investigations, securing and documenting the lab |
 
-## Ground rules
+Handy while I learn: the [cheat sheet](cheatsheet.md) and the [dashboard sidebar map](sidebar-map.md).
 
-- Only your own lab VMs. Never point any of this at a machine that is not yours.
-- Commands on the Wazuh VM need `sudo`. Type your own password; never paste it in chats or notes.
-- Back up a config file before editing it.
-- Crop screenshots so they show only the lab. Never publish a password or a personal name.
-- Lost? [Cheat sheet](cheatsheet.md).
+Ground rules: only my own lab VMs, back up configs before editing, and no passwords or personal names in screenshots.

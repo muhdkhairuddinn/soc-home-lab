@@ -1,6 +1,6 @@
 ---
 title: Cheat sheet
-parent: 30-Day Plan
+parent: My 30-Day Journey
 nav_order: 1
 ---
 

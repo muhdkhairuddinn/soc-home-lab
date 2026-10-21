@@ -1,6 +1,6 @@
 ---
 title: Dashboard sidebar map
-parent: 30-Day Plan
+parent: My 30-Day Journey
 nav_order: 2
 ---
 
@@ -10,15 +10,15 @@ The Wazuh dashboard sidebar is a list of things to learn. This table shows which
 
 | Sidebar item | What it is for | Day |
 |---|---|---|
-| Endpoints Summary | List and manage agents | [3](day03.md) |
-| Threat Hunting | Search and read alerts | [2](day02.md), [5](day05.md), [20](day20.md) |
-| File Integrity Monitoring | Changes to watched files | [15](day15.md) |
-| Configuration Assessment | Hardening checks (SCA) | [16](day16.md) |
-| Vulnerability Detection | Known CVEs in installed software | [17](day17.md) |
-| MITRE ATT&CK | Alerts grouped by attacker technique | [12](day12.md), [28](day28.md) |
-| Server management: Rules and Decoders | Read, write and test detection logic | [8](day08.md), [9](day09.md), [10](day10.md) |
-| Reporting | Export what you found | [25](day25.md) |
-| Discover, Visualize, Dashboards | Build your own views | [20](day20.md) |
+| Endpoints Summary | List and manage agents | 3 |
+| Threat Hunting | Search and read alerts | 2, 5, 20 |
+| File Integrity Monitoring | Changes to watched files | 15 |
+| Configuration Assessment | Hardening checks (SCA) | 16 |
+| Vulnerability Detection | Known CVEs in installed software | 17 |
+| MITRE ATT&CK | Alerts grouped by attacker technique | 12, 28 |
+| Server management: Rules and Decoders | Read, write and test detection logic | 8, 9, 10 |
+| Reporting | Export what you found | 25 |
+| Discover, Visualize, Dashboards | Build your own views | 20 |
 
 ## Not in the 30 days (explore after)
 
