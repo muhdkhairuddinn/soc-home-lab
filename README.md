@@ -9,9 +9,9 @@ fixed them, and wrote it all down so you don't have to suffer the same way.
 
 Three virtual machines in an isolated network:
 
-- **Wazuh** (Ubuntu): the "brain" that collects logs and shouts when something looks odd.
+- **Wazuh** (Ubuntu): the "brain" that collects logs and shouts when something looks odd. It runs in the background like a small server, and I open its dashboard from the Windows VM's browser.
 - **Windows + Sysmon**: the machine being watched. Sysmon tells Wazuh everything it does.
-- **Kali**: the third machine on the lab network.
+- **Kali**: set up on the lab network, not used for anything yet.
 
 I run harmless commands on the Windows VM and watch what Wazuh says about them.
 
@@ -26,20 +26,19 @@ Two custom detection rules I wrote, firing in the Wazuh dashboard:
 | 100100 | `whoami.exe` running | T1033 |
 | 100102 | A scheduled task being created | T1053.005 |
 
-## Plot twist
+## What I learned
 
-I wrote four rules. Only two were worth keeping. For the other two, Wazuh **already had
-built-in rules** that fired first, so mine were just noise. I deleted them and wrote down
-why. Lesson: check what the tool already does before reinventing it.
+I wrote four rules and kept two. For the other two, Wazuh already had built-in rules that
+fired first. Check what the tool already does before reinventing it.
 
 ## The journey
 
-| Part | What | Status |
-|---|---|---|
-| 1 | [Lab setup](docs/01-lab-setup.md) | Working and documented |
-| 2 | [Detection rules](docs/02-detection-rules.md) | In progress: rules work, logtest output still to add |
-| 3 | [Investigation write-ups](docs/03-investigations.md) | Coming soon |
-| 4 | [Lessons learned (aka things that broke)](docs/04-lessons-learned.md) | Written, grows as I break more stuff |
+| Part | What |
+|---|---|
+| 1 | [Lab setup](docs/01-lab-setup.md) |
+| 2 | [Detection rules](docs/02-detection-rules.md) |
+| 3 | [Investigation write-ups](docs/03-investigations.md) |
+| 4 | [Lessons learned](docs/04-lessons-learned.md) |
 
 ## Built with
 

@@ -13,8 +13,8 @@ fixed them, and wrote it all down so you don't have to suffer the same way.
 
 1. [Lab setup](01-lab-setup.md): three VMs, one isolated network, one very patient PC
 2. [Detection rules](02-detection-rules.md): two rules I wrote, and two I deleted (on purpose)
-3. [Investigation write-ups](03-investigations.md): coming soon
-4. [Lessons learned](04-lessons-learned.md): the "why is nothing working" chapter
+3. [Investigation write-ups](03-investigations.md): a failed-logon alert, traced step by step
+4. [Lessons learned](04-lessons-learned.md): what this taught me about security monitoring
 
 ## Why bother?
 

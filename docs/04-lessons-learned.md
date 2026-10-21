@@ -4,50 +4,50 @@ title: Part 4 - Lessons learned
 
 # Part 4: Lessons learned
 
-Or: "everything that broke, and what fixed it."
+What this lab taught me about security monitoring.
 
-## The disk filled up and Wazuh gave up
+## 1. Look at what the tool already detects
 
-The installer got all the way to the last step, then died and politely uninstalled itself.
+I wrote four detection rules. Wazuh already shipped rules for two of them
+([Part 2](02-detection-rules.md)). Before writing a rule, search the existing ruleset.
+Only fill real gaps, because duplicate rules just add noise.
 
-![No space left on device](images/lesson-disk-full-error.png)
+## 2. Alert level is not the same as "attack"
 
-The VM disk was only 25 GB. I made it 60 GB and grew the partition:
+`whoami` is level 5 on purpose. Attackers run it, but so do admins. A SOC needs
+low-level clues that become interesting only when combined with other events. A level-12
+alert for every `whoami` would train analysts to ignore the dashboard.
 
-```bash
-sudo apt install -y cloud-guest-utils
-sudo growpart /dev/sda 3
-sudo resize2fs /dev/sda3
-```
+## 3. Logs only help if the right ones are on
 
-Second try worked. **Lesson:** a SIEM eats disk. Give it room.
+Windows does not log process creation in detail by default. Sysmon fixed that. Without it,
+rules 100100 and 100102 could not exist. Check what telemetry you collect before
+promising any detection.
 
-## Everything was slow (it was the hard disk)
+## 4. Test every rule, then clean up
 
-Three VMs installing on a spinning hard drive = a very sad computer. Moving the VM files
-to an SSD fixed it. **Lesson:** check where your files live before blaming the CPU.
+A rule you never triggered is a guess. I fired each rule with a harmless built-in command,
+confirmed the alert, then removed the test artifacts (the scheduled task, the test
+registry value). The two rules that never fired showed me the built-in ones were already
+catching those events.
 
-## Copy-paste refused to work
+## 5. Map detections to MITRE ATT&CK
 
-Two culprits:
+Tagging rules with technique IDs (T1033, T1053.005) makes alerts easier to explain and
+shows which attacker behaviors are covered and which are not.
 
-- Ubuntu was using **Wayland**, and VirtualBox's clipboard only works on **Xorg**.
-- Two different versions of the VirtualBox guest tools were installed and fighting.
+## 6. Context decides whether an alert is bad
 
-Fix: switch to Xorg, keep only one version of the tools, and start the clipboard helper
-on login. **Lesson:** match the guest tools to your VirtualBox version.
+A failed login followed by a success from the same user and machine is usually a typo.
+Fifty failures from one IP is a brute-force attempt. The same event type, very different
+meaning. See [Part 3](03-investigations.md).
 
-## The user couldn't use sudo
+## 7. Isolate the lab
 
-The auto-installer made my Ubuntu user without admin powers. I fixed it from a live
-Ubuntu ISO by mounting the disk and adding the user to the `sudo` group. **Lesson:**
-test `sudo whoami` first thing.
+Each VM has an internet card and a second card on a private lab-only network. Anything
+risky I test later stays off the home Wi-Fi.
 
-## My detection rules were redundant
+## 8. Protect the monitoring system itself
 
-Covered in [Part 2](02-detection-rules.md). Short version: I wrote rules Wazuh already had.
-
-## Keeping the lab off the home Wi-Fi
-
-Each VM has an internet card and a second card on a private lab-only network. Handy for
-the day I run something I don't want anywhere near the family laptop.
+The Wazuh dashboard holds every log from every machine. Its admin password stays out of
+screenshots and out of the repo, and I check every image for secrets before publishing.

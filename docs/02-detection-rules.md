@@ -57,7 +57,7 @@ schtasks /create /tn LabDemoTask /tr notepad.exe /sc once /st 23:59 /f
 schtasks /delete /tn LabDemoTask /f
 ```
 
-## The two I deleted (plot twist)
+## The two I deleted
 
 I also wrote rules for **encoded PowerShell commands** and **programs added to the Windows
 startup list**. I tested them... and they never fired. Not because they were broken, but
@@ -74,10 +74,6 @@ So I deleted mine. A duplicate rule is just extra noise for whoever reads the al
 
 **Takeaway:** look at what the tool already does before writing your own. Only fill the gaps.
 (Neither `whoami` nor `schtasks /create` had a built-in rule, so mine are real additions.)
-
-## What's still to do
-
-- Show the `wazuh-logtest` output for each rule.
 
 ## Next
 
