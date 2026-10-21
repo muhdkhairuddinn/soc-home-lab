@@ -34,7 +34,21 @@ LISTEN 0.0.0.0:55000    python3          (Wazuh API)
 LISTEN 127.0.0.1:9200   java             (indexer)
 ```
 
+I also checked that the three services are running:
+
+```bash
+systemctl status wazuh-manager wazuh-indexer wazuh-dashboard --no-pager
+```
+
+| Service | State | Memory |
+|---|---|---|
+| wazuh-manager | active (running), up 11 hours | 1.8 GB |
+| wazuh-indexer | active (running), up 12 hours | 1.5 GB |
+| wazuh-dashboard | active (running), up 12 hours | 203 MB |
+
 ## What I learned
+
+- Wazuh is three services, not one program. The manager and indexer are the heavy ones (about 3.3 GB between them), which is why the VM needs 8 GB of RAM.
 
 - Every part is a program listening on a port. If something breaks, check the port, then the program.
 - The **indexer only listens on 127.0.0.1**. Only the Ubuntu VM itself can reach my stored alerts. Nothing else on the network can talk to it directly, which is good for security.
