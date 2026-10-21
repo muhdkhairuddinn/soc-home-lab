@@ -26,6 +26,10 @@ On the Wazuh server, I listed the ports that are listening:
 sudo ss -tlnp | grep -E '1514|1515|55000|9200|443'
 ```
 
+![Listening ports on the Wazuh server](../images/day01-ports.png)
+
+The same thing, in plain words:
+
 ```text
 LISTEN 0.0.0.0:443      node             (dashboard)
 LISTEN 0.0.0.0:1514     wazuh-remoted    (agents send events here)
@@ -39,6 +43,8 @@ I also checked that the three services are running:
 ```bash
 systemctl status wazuh-manager wazuh-indexer wazuh-dashboard --no-pager
 ```
+
+![The three Wazuh services running](../images/day01-services.png)
 
 | Service | State | Memory |
 |---|---|---|
